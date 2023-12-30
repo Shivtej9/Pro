@@ -1,0 +1,168 @@
+<script>
+    $(document).ready(function() {
+
+        var options = {
+            series: [{{student_count}}, {{staff_count}}, {{course_count}},{{subject_count}}],
+            chart: {
+            height: 350,
+            width: '100%',
+            type: 'pie',
+          },
+          labels: ['Student', 'Staff', 'Course', 'Subject'],
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }]
+          };
+  
+          var chart = new ApexCharts(document.querySelector("#All_details"), options);
+          chart.render();
+    
+        // Bar chart
+        
+        if ($('#stud_gender').length > 0) {
+        var optionsBar = {
+            chart: {
+                type: 'bar',
+                height: 350,
+                width: '100%',
+                stacked: true,
+                toolbar: {
+                    show: false
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            plotOptions: {
+                bar: {
+                    columnWidth: '45%',
+                }
+            },
+            series: [{
+                name: "Boys",
+                color: '#fdbb38',
+                data: [{{student_gender_male}}],
+            }, {
+                name: "Girls",
+                color: '#19affb',
+                data: [{{student_gender_female}}],
+            }],
+            labels: [2023,2024,2025,],
+            xaxis: {
+                labels: {
+                    show: false
+                },
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false
+                },
+            },
+            yaxis: {
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false
+                },
+                labels: {
+                    style: {
+                        colors: '#777'
+                    }
+                }
+            },
+            title: {
+                text: '',
+                align: 'left',
+                style: {
+                    fontSize: '18px'
+                }
+            }
+    
+        }
+      
+        var chartBar = new ApexCharts(document.querySelector('#stud_gender'), optionsBar);
+        chartBar.render();
+        }
+
+        //student And staff
+
+        var options = {
+            series: [{{student_count}},{{staff_count}}],
+            chart: {
+            height: 350,
+            width: '100%',
+            type: 'donut',
+          },
+          labels: ['Student', 'Staff'],
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }]
+          };
+  
+          var chart = new ApexCharts(document.querySelector("#stu_staff"), options);
+          chart.render();
+
+        //course and subject
+        var options = {
+            series: [{{student_count}},{{subject_count}}],
+            chart: {
+            height: 350,
+            width: '100%',
+            type: 'donut',
+          },
+          labels: ['Student', 'Staff'],
+          plotOptions: {
+            pie: {
+              startAngle: -90,
+              endAngle: 270
+            }
+          },
+          dataLabels: {
+            enabled: false
+          },
+          fill: {
+            type: 'gradient',
+          },
+          legend: {
+            formatter: function(val, opts) {
+              return val + " - " + opts.w.globals.series[opts.seriesIndex]
+            }
+          },
+
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }]
+          };
+  
+          var chart = new ApexCharts(document.querySelector("#course_subject"), options);
+          chart.render();
+
+    });
+
+</script>
